@@ -5,8 +5,8 @@ import "./Main.scss";
 import AddNewScenario from "./AddNewScenario";
 import AppBar from "../components/app-bar/AppBar";
 import Search from "../components/search/Search";
-import ScenarioList from "../components/scenarios-list/ScenarioList";
-import Dropdown from "../components/drop-downs/Dropdown";
+import ScenariosContainer from "../components/scenarios/ScenariosContainer";
+import DropDownListContainer from "../components/drop-downs/DropDownListContainer";
 import Container from '@material-ui/core/Container';
 
 
@@ -19,8 +19,8 @@ class Main extends Component {
 
                 <AppBar />
                 <Search />
-                <Dropdown />
-                <ScenarioList />
+                <DropDownListContainer />
+                <ScenariosContainer />
                 {/*<ShowScenario />*/}
                 </Container>
             </React.Fragment>

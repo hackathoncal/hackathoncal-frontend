@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import './SimpleModal.scss'
+import Option from "./Option";
+import Search from "./search/Search";
 
 export default function SimpleModal(props) {
     const [modalStyle] = React.useState();
@@ -15,13 +17,18 @@ export default function SimpleModal(props) {
         setOpen(false);
     };
 
+    const handleSubmit = (e) => {
+        handleClose();
+        props.handleOK(e,1)
+    }
+
     const body = (
         <div style={modalStyle} className={'modal-main-div'}>
             <h4 id="simple-modal-title">Add Option</h4>
             <div className={'modal-div'}>
-                <form onSubmit={()=>props.handleOK()}>
+                <form onSubmit={(e)=>handleSubmit(e)}>
                     <label className={'modal-label'}>Text:</label>
-                    <input className={'modal-text'}/>
+                    <input className={'modal-text'} autoFocus={true}/>
                     <button className={'button save-btn'}>Save</button>
                 </form>
             </div>

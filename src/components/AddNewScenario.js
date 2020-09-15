@@ -3,22 +3,41 @@ import Option from "./Option";
 import SimpleModal from './SimpleModal'
 import './scenario.scss';
 
-class AddNewScenario extends React.Component {
 
-    options = {
-        id: '',
-        text: '',
-        next_node_id: null,
-    };
+class AddNewScenario extends React.Component {
 
     state = {
         id: '',
-        text: '',
+        text: "Can't lunch simulation",
         options: [],
     }
 
-    handleOK = () => {
-        console.log('handling ok')
+    handleOK = (e) => {
+        e.preventDefault();
+
+        const ops = [...this.state.options];
+        const id = ops.length === 0 ? 1 : ops.length + 1; // id should come from BE
+        const newOption = {
+            id: id,
+            text: e.target.elements[0].value,
+            next_node_id: null,
+        };
+
+        this.setState({ options: [...this.state.options, newOption]})
+
+    }
+
+    handleDelete = (e) => {
+        console.log(e.target);
+    }
+
+    scenariosList = (options) => {
+        const allOptions = options.map((opt, index) => {
+            return <Option text={opt.text} key={index} handleDelete={(e)=>this.handleDelete(e)}/>
+        })
+        return  (
+            <div>{allOptions}</div>
+        )
     }
 
     render() {
@@ -27,8 +46,8 @@ class AddNewScenario extends React.Component {
             <div className={'main-div'}>
                 <textarea className={'txt-field textarea'}>{this.state.text}</textarea>
                 <br/>
-                <div id={"options-id"} className={'txt-field'}>
-                    <Option/>
+                <div className={"options-id"}>
+                    {this.scenariosList(this.state.options)}
                 </div>
                 <SimpleModal
                     open={false}

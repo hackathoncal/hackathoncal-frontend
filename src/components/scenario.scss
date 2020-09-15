@@ -1,5 +1,5 @@
 .txt-field {
-  width: 70%;
+  width: 60%;
 
 }
 
@@ -27,8 +27,8 @@
 }
 
 .option-div {
-  display: block;
-  width: 95%;
+  display: inline;
+  //width: 95%;
   height: 25px;
 }
 
@@ -37,6 +37,10 @@
   text-align: right;
   margin-bottom: 5px;
   margin-top: 5px;
+}
+
+.text-btn {
+  width: 60%;
 }
 
 .edit-btn {

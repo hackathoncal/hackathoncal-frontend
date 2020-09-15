@@ -2,25 +2,17 @@ import React, { Component } from "react";
 import { addOne, subtractOne } from "../redux/actions/counterAction.js";
 import { connect } from "react-redux";
 import "./Main.scss";
+import AddNewScenario from "./AddNewScenario";
+import Option from "./Option";
 
 class Main extends Component {
 
     render() {
-        let { count } = this.props.counter;
         return (
             <React.Fragment>
-                <div className="cover counter">
-                    <div>Cal Hackathon counter: {count}</div>
-                    <div>
-                        <button onClick={() => this.props.addOneToCounter(count)}>
-                            Add one
-                        </button>
-                    </div>
-                    <div>
-                        <button onClick={() => this.props.subtractOneFromCounter(count)}>
-                            Subtract one
-                        </button>
-                    </div>
+                <div>
+                    {AddNewScenario()}
+                    {Option()}
                 </div>
             </React.Fragment>
         );

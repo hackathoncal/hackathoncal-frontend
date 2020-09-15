@@ -1,4 +1,4 @@
-export const node1 = {
+export const nodes = [{
     id: 111,
     text: "do something A",
     options: [{
@@ -11,9 +11,8 @@ export const node1 = {
         text: "we're done",
         next_node: null
     }],
-}
-
-export const node2 = {
+},
+{
     id: 222,
     text: "do something B",
     options: [{
@@ -23,16 +22,15 @@ export const node2 = {
         text: "we're done",
         next_node: null
     }],
-}
-
-export const node3 = {
+},
+{
     id: 333,
     text: "do something C",
     options: [{
         text: "we're done",
         next_node: null
     }],
-}
+}];
 
 
 export const scenario1 = {
@@ -43,4 +41,4 @@ export const scenario1 = {
     category: "matlab",
     owners: ["Ariel", "Lior Cohen", "Gary Dickerson"],
     first_node: 111,
-}
+};

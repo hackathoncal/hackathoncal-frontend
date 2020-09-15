@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-// import "./createNewScenarioModal.scss";
+// import "./createNewScenarioModal.css";
 
 import TextField from '@material-ui/core/TextField';
+import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 
 class CreateNewScenarioModal extends Component {
+
     state = {
         scenario: {
             name: "",
@@ -41,6 +43,7 @@ class CreateNewScenarioModal extends Component {
     }
 
     render() {
+
         return (
             <React.Fragment>
                 <form noValidate autoComplete="off">

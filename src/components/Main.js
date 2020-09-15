@@ -30,7 +30,7 @@ class Main extends Component {
                 {/*<Search />*/}
                 {/*<Dropdown />*/}
                 {/*<ScenarioList />*/}
-                {/*<ShowScenario />*/}
+                <ShowScenario />
                 {this.state.showCreateNewScenarioModal && <CreateNewScenarioModal handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/> }
                 </Container>
             </React.Fragment>

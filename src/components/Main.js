@@ -8,21 +8,11 @@ import CreateNewScenarioModal from "./createNewScenarioModal";
 class Main extends Component {
 
     render() {
-        let { count } = this.props.counter;
         return (
             <React.Fragment>
-                <div className="cover counter">
-                    <div>Cal Hackathon counter: {count}</div>
-                    <div>
-                        <button onClick={() => this.props.addOneToCounter(count)}>
-                            Add one
-                        </button>
-                    </div>
-                    <div>
-                        <button onClick={() => this.props.subtractOneFromCounter(count)}>
-                            Subtract one
-                        </button>
-                    </div>
+                <div>
+                    {/* {AddNewScenario(ShowScenario)}
+                    {Option()} */}
                 </div>
                 <ShowScenario />
                 <CreateNewScenarioModal />

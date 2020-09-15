@@ -5,10 +5,11 @@ import "./Main.scss";
 import AddNewScenario from "./AddNewScenario";
 import AppBar from "../components/app-bar/AppBar";
 import Search from "../components/search/Search";
-import ScenarioList from "../components/scenarios-list/ScenarioList";
-import Dropdown from "../components/drop-downs/Dropdown";
+import ScenariosContainer from "../components/scenarios/ScenariosContainer";
+import DropDownListContainer from "../components/drop-downs/DropDownListContainer";
 import Container from '@material-ui/core/Container';
-import CreateNewScenarioModal from "./CreateNewScenarioModal";
+import CreateNewScenario from "./CreateNewScenario";
+import CreateScenarioModal from "./CreateScenarioModal";
 
 
 class Main extends Component {
@@ -27,10 +28,15 @@ class Main extends Component {
 
                 <AppBar handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/>
                 {/*<Search />*/}
-                {/*<Dropdown />*/}
-                {/*<ScenarioList />*/}
-                <ShowScenario />
-                {this.state.showCreateNewScenarioModal && <CreateNewScenarioModal handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/> }
+                {/*<DropDownListContainer />*/}
+                {/*<ScenariosContainer />*/}
+                {/*<ShowScenario />*/}
+                {/*{this.state.showCreateNewScenarioModal && <CreateNewScenario handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/> }*/}
+                {this.state.showCreateNewScenarioModal &&
+                    <CreateScenarioModal
+                        showCreateNewScenarioModal={this.state.showCreateNewScenarioModal}
+                        handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}
+                    /> }
                 </Container>
             </React.Fragment>
         );

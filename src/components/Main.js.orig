@@ -2,41 +2,44 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ShowScenario from "./showScenario";
 import "./Main.scss";
-<<<<<<< HEAD
-import CreateNewScenarioModal from "./createNewScenarioModal";
-=======
 import AddNewScenario from "./AddNewScenario";
-import Option from "./Option";
 import AppBar from "../components/app-bar/AppBar";
 import Search from "../components/search/Search";
-import ScenarioList from "../components/scenarios-list/ScenarioList";
-import Dropdown from "../components/drop-downs/Dropdown";
+import ScenariosContainer from "../components/scenarios/ScenariosContainer";
+import DropDownListContainer from "../components/drop-downs/DropDownListContainer";
 import Container from '@material-ui/core/Container';
+import CreateNewScenario from "./CreateNewScenario";
 
->>>>>>> 37a5e996af95dce00d687ba554674965397ec460
 
 class Main extends Component {
+    state = {
+        showCreateNewScenarioModal: false
+    }
+
+    handleShowCreateNewScenarioModalBtnClick = (showCreateNewScenarioModal) => {
+        this.setState({showCreateNewScenarioModal: showCreateNewScenarioModal})
+    }
 
     render() {
         return (
             <React.Fragment>
-<<<<<<< HEAD
-                <div>
-                    {/* {AddNewScenario(ShowScenario)}
-                    {Option()} */}
-                </div>
-                <ShowScenario />
-                <CreateNewScenarioModal />
-=======
                 <Container fixed>
 
+<<<<<<< HEAD
+                <AppBar handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/>
+                {/*<Search />*/}
+                {/*<Dropdown />*/}
+                {/*<ScenarioList />*/}
+                <ShowScenario />
+                {this.state.showCreateNewScenarioModal && <CreateNewScenario handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/> }
+=======
                 <AppBar />
                 <Search />
-                <Dropdown />
-                <ScenarioList />
+                <DropDownListContainer />
+                <ScenariosContainer />
                 {/*<ShowScenario />*/}
+>>>>>>> 9ffcbd82259273ff81d230854beed6ea46e9d7b2
                 </Container>
->>>>>>> 37a5e996af95dce00d687ba554674965397ec460
             </React.Fragment>
         );
     }

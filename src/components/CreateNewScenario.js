@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 
-class CreateNewScenarioModal extends Component {
+class CreateNewScenario extends Component {
 
     state = {
         scenario: {
@@ -66,4 +66,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNewScenarioModal);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewScenario);

@@ -1,9 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+// import Icon from '@material-ui/core/Icon';
+// import SaveIcon from '@material-ui/icons/Save';
+
+
 
 import { scenario1, nodes } from "./constants";
-import VerticalLinearStepper from "./stepperMenu";
 import OptionsButtons from "./optionGroup";
 
 const useStyles = makeStyles((theme) => ({
@@ -11,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
         ...theme.typography.button,
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(1),
+    },
+    button: {
+        margin: theme.spacing(1),
     },
 }));
 
@@ -24,49 +31,55 @@ export default function ShowScenario() {
     const firstNodeID = scenario.first_node;
 
     const [activeNodeID, setActiveNodeID] = React.useState(firstNodeID);
-    
 
-    const getSteps = () => {
+    const [previousIDs, setPreviousIDs] = React.useState([firstNodeID]);
 
-        const allTexts = allNodes.map(item => item.text);
-        return allTexts;
-    }
-
-    const getStepContent = step => {
-    
-        const options = nodes[step].options;
-
-        const steps = options.map(item => item.text);
-
-        return steps.join(", ");
-
-    }
 
     const getOptions = () => {
         const activeNode = allNodes.filter(item => item.id === activeNodeID)[0];
 
-        console.log(activeNode[0]);
-
         const options = activeNode.options;
 
-        console.log(options);
-    
         return options;
 
     }
 
     const selectOption = id => {
         console.log(id);
-        if (id !== null){
+        if (id !== null) {
             setActiveNodeID(id);
         }
-        
+
     }
 
     const getActiveNodeText = () => {
         const activeNode = allNodes.filter(item => item.id === activeNodeID)[0];
         return activeNode.text;
     }
+
+    const updatePreviousIDs = id => {
+        console.log('#############');
+        console.log(id);
+        console.log(previousIDs);
+        if (id !== null) {
+            const ids = previousIDs;
+            ids.push(id);
+            console.log(ids);
+            setPreviousIDs(ids);
+        }
+        
+    }
+
+    const handleBack = () => {
+        if (previousIDs.length > 1) {
+            const ids = previousIDs;
+            ids.pop();
+            setPreviousIDs(ids);
+            setActiveNodeID(previousIDs[previousIDs.length - 1])
+        }
+    }
+
+    const backButtonDisabled = previousIDs.length <= 1;
 
 
     return (
@@ -80,9 +93,24 @@ export default function ShowScenario() {
                 </Typography>
             </div>
             <div className={classes.root}>{getActiveNodeText()}</div>
-               
-                <OptionsButtons options={getOptions()} selectOption={(id) => selectOption(id)}/>
-            {/* <VerticalLinearStepper getSteps={getSteps} getStepContent={(id) => getStepContent(id)} getOptions={getOptions} /> */}
+
+            <OptionsButtons
+                options={getOptions()}
+                selectOption={(id) => selectOption(id)}
+                updatePreviousIDs={(id) => updatePreviousIDs(id)}
+            />
+
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                disabled={backButtonDisabled}
+                onClick={handleBack}
+            // startIcon={<SaveIcon />}
+            >
+                Back
+            </Button>
+
         </>
     );
 }

@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import "./createNewScenarioModal.scss";
 
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
 class CreateNewScenarioModal extends Component {
     state = {
         scenario: {
@@ -10,7 +13,6 @@ class CreateNewScenarioModal extends Component {
             description: "",
             tags: [],
             category: "",
-            owners: [],
             firstNodeId: null
         }
     }
@@ -19,18 +21,30 @@ class CreateNewScenarioModal extends Component {
         this.setState({"scenario": { ...this.state.scenario, "firstNodeId": id }});
     }
 
+    handleFieldChange = (fieldName, data) => {
+        this.setState({fieldName: data})
+    }
+
+    handleSaveNewScenario = () => {
+        alert("save")
+        // api call with the state (scenario interface)
+    }
+
+    handleCreateNodesTree = () => {
+        this.getFirstNodeId(1) // suppose to run in createNodesTree component
+        alert("connect to  create component")
+        //  connect to createNodesTree component
+    }
+
     render() {
         return (
             <React.Fragment>
-                <div className="formContainer">
-                    <label htmlFor="name">Name:<input id="name" type="text" placeholder="please enter scenario name"/></label>
-                    <label htmlFor="description">Name:<input id="description" type="text" placeholder="please enter scenario description"/></label>
-                    <label htmlFor="tags">Name:<input id="tags" type="text" placeholder="please enter scenario tags"/></label>
-                    <label htmlFor="category">Name:<input id="category" type="text" placeholder="please enter scenario category"/></label>
-                    <label htmlFor="owners">Name:<input id="owners" type="text" placeholder="please enter scenario owners"/></label>
-                </div>
-                <button>Create nodes tree</button>
-                <button>Save</button>
+                <form noValidate autoComplete="off">
+                    <TextField onChange={(data) => this.handleFieldChange("name", data)} id="outlined-search" label="Name" type="search" variant="outlined" />
+                    <TextField onChange={(data) => this.handleFieldChange("description", data)}id="outlined-search" label="Description" type="search" variant="outlined" />
+                </form>
+                <button onClick={this.handleCreateNodesTree}>Create nodes tree</button>
+                <button onClick={this.handleSaveNewScenario}>Save</button>
             </React.Fragment>
         );
     }

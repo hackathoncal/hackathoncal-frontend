@@ -1,17 +1,26 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import SimpleCard from './cardComponent';
 
-import { addOne, subtractOne } from "../redux/actions/counterAction.js";
-import { connect } from "react-redux";
+// import Icon from '@material-ui/core/Icon';
+// import SaveIcon from '@material-ui/icons/Save';
+
+
+
 import { scenario1, nodes } from "./constants";
-import VerticalLinearStepper from "./stepperMenu";
+import OptionsButtons from "./optionGroup";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         ...theme.typography.button,
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(1),
+    },
+    button: {
+        margin: theme.spacing(1),
     },
 }));
 
@@ -22,38 +31,99 @@ export default function ShowScenario() {
     const scenario = scenario1;
     const allNodes = nodes;
 
-    const getSteps = () => {
+    const firstNodeID = scenario.first_node;
 
-        const allTexts = allNodes.map(item => item.text);
-        return allTexts;
-    }
+    const [activeNodeID, setActiveNodeID] = React.useState(firstNodeID);
 
-    const getStepContent = step => {
-    
-        const options = nodes[step].options;
+    const [previousIDs, setPreviousIDs] = React.useState([firstNodeID]);
 
-        console.log(options);
 
-        const steps = options.map(item => item.text);
+    const getOptions = () => {
+        const activeNode = allNodes.filter(item => item.id === activeNodeID)[0];
 
-        console.log(steps);
+        const options = activeNode.options;
 
-        return steps.join(", ");
+        return options;
 
     }
+
+    const selectOption = id => {
+        console.log(id);
+        if (id !== null) {
+            setActiveNodeID(id);
+        }
+
+    }
+
+    const getActiveNodeText = () => {
+        const activeNode = allNodes.filter(item => item.id === activeNodeID)[0];
+        return activeNode.text;
+    }
+
+    const getActiveNodeUrl = () => {
+        const activeNode = allNodes.filter(item => item.id === activeNodeID)[0];
+        return activeNode.url;
+    }
+
+    const getActiveNodeTooltip = () => {
+        const activeNode = allNodes.filter(item => item.id === activeNodeID)[0];
+        console.log(activeNode.tooltip);
+        return activeNode.tooltip;
+    }
+
+    const updatePreviousIDs = id => {
+        if (id !== null) {
+            const ids = previousIDs;
+            ids.push(id);
+            console.log(ids);
+            setPreviousIDs(ids);
+        }
+        
+    }
+
+    const handleBack = () => {
+        if (previousIDs.length > 1) {
+            const ids = previousIDs;
+            ids.pop();
+            setPreviousIDs(ids);
+            setActiveNodeID(previousIDs[previousIDs.length - 1])
+        }
+    }
+
+    const backButtonDisabled = previousIDs.length <= 1;
 
 
     return (
-        <>
-            <div className={classes.root}>
-                <Typography variant="h3" component="h3">
+        <><Container fixed>
+            <div className>
+                <Typography variant="h4" component="h4">
                     {scenario.name}
                 </Typography>
-                <Typography variant="h6" component="h6">
+                <Typography variant="subtitle1" gutterBottom>
                     {scenario.description}
                 </Typography>
             </div>
-            <VerticalLinearStepper getSteps={getSteps} getStepContent={(id) => getStepContent(id)} />
+            <SimpleCard text={getActiveNodeText()} learnMore={getActiveNodeTooltip()}/>
+
+            <OptionsButtons
+                options={getOptions()}
+                url={getActiveNodeUrl()}
+                selectOption={(id) => selectOption(id)}
+                updatePreviousIDs={(id) => updatePreviousIDs(id)}
+            />
+
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                disabled={backButtonDisabled}
+                onClick={handleBack}
+            // startIcon={<SaveIcon />}
+            >
+                Back
+            </Button>
+            </Container>
+
         </>
     );
 }

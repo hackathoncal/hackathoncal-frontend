@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { addOne, subtractOne } from "../redux/actions/counterAction.js";
 import { connect } from "react-redux";
+import ShowScenario from "./showScenario";
 import "./Main.scss";
 import AddNewScenario from "./AddNewScenario";
 import Option from "./Option";
@@ -14,6 +15,7 @@ class Main extends Component {
                     {AddNewScenario()}
                     {Option()}
                 </div>
+                <ShowScenario />
             </React.Fragment>
         );
     }

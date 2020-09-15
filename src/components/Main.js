@@ -9,6 +9,7 @@ import Search from "../components/search/Search";
 import ScenarioList from "../components/scenarios-list/ScenarioList";
 import Dropdown from "../components/drop-downs/Dropdown";
 import Container from '@material-ui/core/Container';
+import CreateNewScenarioModal from "./CreateNewScenarioModal";
 
 
 class Main extends Component {
@@ -23,6 +24,7 @@ class Main extends Component {
                 <Dropdown />
                 <ScenarioList />
                 {/*<ShowScenario />*/}
+                <CreateNewScenarioModal />
                 </Container>
             </React.Fragment>
         );

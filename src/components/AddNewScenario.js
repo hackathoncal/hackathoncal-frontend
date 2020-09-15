@@ -2,15 +2,16 @@ import * as React from 'react';
 import Option from "./Option";
 import './scenario.scss';
 
-const AddNewScenario = () => {
+const AddNewScenario = (scenario) => {
 
     const handleAddNew = () => {
         console.log('adding new');
     }
+    console.log('Scenario:', scenario)
 
     return(
         <div className={'main-div'}>
-            <textarea className={'txt-field textarea'}/>
+            <textarea className={'txt-field textarea'}>{scenario.name}</textarea>
             <br/>
             <div id={"options-id"} className={'txt-field'}/>
             <button className={'button txt-field add'} onClick={handleAddNew}>+</button>

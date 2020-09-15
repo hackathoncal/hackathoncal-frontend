@@ -28,7 +28,7 @@ export const nodes = [{
     id: 333,
     text: "Open 'Matlab is stuck when running' confluence page",
     tooltip: null,
-    url: "www.google.com", // need to add url
+    url: "http://dcilpa317:8090/display/SysSW/Calibrations+SW+Home",
     options: [{
         text: "Open page",
         next_node: null 
@@ -50,7 +50,7 @@ export const nodes = [{
     id: 555,
     text: "Open 'How to configure matlab service' confluence page",
     tooltip: null,
-    url: "www.netflix.com", // need to add url
+    url: "http://dcilpa317:8090/display/SysSW/Calibrations+SW+Home", // need to add url
     options: [{
         text: "Open page",
         next_node: null 
@@ -92,7 +92,7 @@ export const nodes = [{
     id: 999,
     text: "Open 'How to validate schema parameters' confluence page",
     tooltip: null,
-    url: "www.nba.com",
+    url: "http://dcilpa317:8090/display/SysSW/Calibrations+SW+Home",
     options: [{
         text: "Open page",
         next_node: null 
@@ -125,7 +125,7 @@ export const nodes = [{
     id: 3333,
     text: "Open 'How to configure the correct MCR' confluence page",
     tooltip: null,
-    url: "www.walla.co.il",
+    url: "http://dcilpa317:8090/display/SysSW/Calibrations+SW+Home",
     options: [{
         text: "Open page",
         next_node: null 

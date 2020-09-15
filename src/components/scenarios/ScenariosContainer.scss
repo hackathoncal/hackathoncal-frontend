@@ -1,0 +1,16 @@
+.scenarios-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4vh;
+
+  div {
+    width: 100%;
+    nav {
+      max-width: 95%;
+    }
+  }
+  div.list-scenarios {
+    align-self: self-start;
+  }
+}

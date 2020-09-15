@@ -17,16 +17,22 @@ const useStyles = makeStyles((theme) => ({
 export default function OptionsButtons(props) {
     const classes = useStyles();
 
-    const { options, selectOption } = props;
+    const { options, selectOption, updatePreviousIDs } = props;
     console.log(options);
+
+    const handleClick = id => {
+        selectOption(id);
+        updatePreviousIDs(id);
+    }
 
     return (
         <div className={classes.root}>
             <ButtonGroup color="secondary" aria-label="outlined secondary button group">
-                {options.map(item => {
+                {options.map((item, index) => {
                     return (
                         <Button
-                            onClick={() => selectOption(item.next_node)}>
+                            key={index}
+                            onClick={() => handleClick(item.next_node)}>
                             {item.text}
                         </Button>
                     )

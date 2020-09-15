@@ -12,8 +12,8 @@ class Main extends Component {
         return (
             <React.Fragment>
                 <div>
-                    {AddNewScenario()}
-                    {Option()}
+                    {/* {AddNewScenario(ShowScenario)}
+                    {Option()} */}
                 </div>
                 <ShowScenario />
             </React.Fragment>

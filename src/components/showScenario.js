@@ -29,7 +29,7 @@ export default function ShowScenario() {
     }
 
     const getStepContent = step => {
-   
+    
         const options = nodes[step].options;
 
         console.log(options);

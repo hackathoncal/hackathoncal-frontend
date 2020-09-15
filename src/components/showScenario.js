@@ -2,6 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import SimpleCard from './cardComponent';
+
 // import Icon from '@material-ui/core/Icon';
 // import SaveIcon from '@material-ui/icons/Save';
 
@@ -57,10 +60,18 @@ export default function ShowScenario() {
         return activeNode.text;
     }
 
+    const getActiveNodeUrl = () => {
+        const activeNode = allNodes.filter(item => item.id === activeNodeID)[0];
+        return activeNode.url;
+    }
+
+    const getActiveNodeTooltip = () => {
+        const activeNode = allNodes.filter(item => item.id === activeNodeID)[0];
+        console.log(activeNode.tooltip);
+        return activeNode.tooltip;
+    }
+
     const updatePreviousIDs = id => {
-        console.log('#############');
-        console.log(id);
-        console.log(previousIDs);
         if (id !== null) {
             const ids = previousIDs;
             ids.push(id);
@@ -83,19 +94,20 @@ export default function ShowScenario() {
 
 
     return (
-        <>
+        <><Container fixed>
             <div className>
-                <Typography variant="h3" component="h3">
+                <Typography variant="h4" component="h4">
                     {scenario.name}
                 </Typography>
-                <Typography variant="h5" component="h6">
+                <Typography variant="subtitle1" gutterBottom>
                     {scenario.description}
                 </Typography>
             </div>
-            <div className={classes.root}>{getActiveNodeText()}</div>
+            <SimpleCard text={getActiveNodeText()} learnMore={getActiveNodeTooltip()}/>
 
             <OptionsButtons
                 options={getOptions()}
+                url={getActiveNodeUrl()}
                 selectOption={(id) => selectOption(id)}
                 updatePreviousIDs={(id) => updatePreviousIDs(id)}
             />
@@ -110,6 +122,7 @@ export default function ShowScenario() {
             >
                 Back
             </Button>
+            </Container>
 
         </>
     );

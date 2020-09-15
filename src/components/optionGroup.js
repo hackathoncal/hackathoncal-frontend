@@ -17,12 +17,18 @@ const useStyles = makeStyles((theme) => ({
 export default function OptionsButtons(props) {
     const classes = useStyles();
 
-    const { options, selectOption, updatePreviousIDs } = props;
+    const { options, selectOption, updatePreviousIDs, url } = props;
     console.log(options);
 
     const handleClick = id => {
-        selectOption(id);
-        updatePreviousIDs(id);
+        if (url === null) {
+            selectOption(id);
+            updatePreviousIDs(id);
+        } else {
+            console.log(url);
+            window.open(url,'_blank');
+        }
+        
     }
 
     return (

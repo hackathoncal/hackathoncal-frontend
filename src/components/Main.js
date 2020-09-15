@@ -3,6 +3,7 @@ import { addOne, subtractOne } from "../redux/actions/counterAction.js";
 import { connect } from "react-redux";
 import ShowScenario from "./showScenario";
 import "./Main.scss";
+import CreateNewScenarioModal from "./createNewScenarioModal";
 
 class Main extends Component {
 
@@ -24,6 +25,7 @@ class Main extends Component {
                     </div>
                 </div>
                 <ShowScenario />
+                <CreateNewScenarioModal />
             </React.Fragment>
         );
     }

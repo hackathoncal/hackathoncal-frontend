@@ -2,25 +2,24 @@ import React, { Component } from "react";
 import { addOne, subtractOne } from "../redux/actions/counterAction.js";
 import { connect } from "react-redux";
 import "./Main.scss";
+import Container from '@material-ui/core/Container';
+import AppBar from "../components/app-bar/AppBar";
+import Search from "../components/search/Search";
+import ScenarioList from "../components/scenarios-list/ScenarioList";
+import Dropdown from "../components/drop-downs/Dropdown";
+
+
 
 class Main extends Component {
 
     render() {
-        let { count } = this.props.counter;
         return (
             <React.Fragment>
-                <div className="cover counter">
-                    <div>Cal Hackathon counter: {count}</div>
-                    <div>
-                        <button onClick={() => this.props.addOneToCounter(count)}>
-                            Add one
-                        </button>
-                    </div>
-                    <div>
-                        <button onClick={() => this.props.subtractOneFromCounter(count)}>
-                            Subtract one
-                        </button>
-                    </div>
+                <div className="container">
+                    <AppBar />
+                    <Search />
+                    <Dropdown />
+                    <ScenarioList />
                 </div>
             </React.Fragment>
         );

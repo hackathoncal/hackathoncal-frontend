@@ -1,71 +1,59 @@
-import React, { Component } from "react";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
 import { addOne, subtractOne } from "../redux/actions/counterAction.js";
 import { connect } from "react-redux";
 import { scenario1, nodes } from "./constants";
 import VerticalLinearStepper from "./stepperMenu";
 
-// import "./Main.scss";
+const useStyles = makeStyles((theme) => ({
+    root: {
+        ...theme.typography.button,
+        backgroundColor: theme.palette.background.paper,
+        padding: theme.spacing(1),
+    },
+}));
 
-function getSteps() {
-    return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
-  }
-  
-  function getStepContent(step) {
-    switch (step) {
-      case 0:
-        return `For each ad campaign that you create, you can control how much
-                you're willing to spend on clicks and conversions, which networks
-                and geographical locations you want your ads to show on, and more.`;
-      case 1:
-        return 'An ad group contains one or more ads which target a shared set of keywords.';
-      case 2:
-        return `Try out different ad text to see what brings in the most customers,
-                and learn how to enhance your ads using features like ad extensions.
-                If you run into any problems with your ads, find out how to tell if
-                they're running and how to resolve approval issues.`;
-      default:
-        return 'Unknown step';
+
+export default function ShowScenario() {
+    const classes = useStyles();
+
+    const scenario = scenario1;
+    const allNodes = nodes;
+
+    const getSteps = () => {
+
+        const allTexts = allNodes.map(item => item.text);
+        return allTexts;
     }
-  }
 
-class ShowScenario extends Component {
+    const getStepContent = step => {
+   
+        const options = nodes[step].options;
 
-    render() {
-        // let { scenario } = this.props.selectedScenario;
-        const scenario = scenario1;
-        const firstNode = nodes.filter(item => item.id === scenario.first_node)[0];
-        console.log(firstNode);
-        return (
-            <>
-                <div>
-                    <div>{scenario.name}</div>
-                    <div>
-                        {firstNode.text}
-                    </div>
-                    {firstNode.options.map((item, index) => {
-                        return(
-                            <div key={index}>
-                                {item.text}
-                            </div>
-                        )
+        console.log(options);
 
-                    } )}
-                    <VerticalLinearStepper getSteps={getSteps} getStepContent={(id) => getStepContent(id)} />
-                </div>
-            </>
-        );
+        const steps = options.map(item => item.text);
+
+        console.log(steps);
+
+        return steps.join(", ");
+
     }
+
+
+    return (
+        <>
+            <div className={classes.root}>
+                <Typography variant="h3" component="h3">
+                    {scenario.name}
+                </Typography>
+                <Typography variant="h6" component="h6">
+                    {scenario.description}
+                </Typography>
+            </div>
+            <VerticalLinearStepper getSteps={getSteps} getStepContent={(id) => getStepContent(id)} />
+        </>
+    );
 }
-
-const mapStateToProps = (state) => ({
-    counter: state.counter
-});
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addOneToCounter: (num) => dispatch(addOne(num)),
-        subtractOneFromCounter: (num) => dispatch(subtractOne(num))
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShowScenario);

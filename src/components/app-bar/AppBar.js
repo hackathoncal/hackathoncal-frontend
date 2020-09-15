@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container';
 import Slide from '@material-ui/core/Slide';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import CreateNewScenarioModal from "../CreateNewScenarioModal";
 
 
 
@@ -46,8 +47,15 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 export default function HideAppBar(props) {
+    const state = {
+        showCreateScenarioModal: false
+    }
 
     const classes = useStyles();
+
+    const handleCreateScenarioBtnClick = () => {
+        this.setState({showCreateScenarioModal: true})
+    }
 
     return (
         <React.Fragment>
@@ -56,9 +64,10 @@ export default function HideAppBar(props) {
                 <AppBar>
                     <Toolbar>
                         <Typography variant="h6">Hackathon 2020: CALIBRATION GROUP </Typography>
-                        <Button size="large" className={classes.margin} style={{color: "white", backgroundColor:"green",position: "relative", left: "50vw"}}>
+                        <Button onClick={this.handleCreateScenarioBtnClick} size="large" className={classes.margin} style={{color: "white", backgroundColor:"green",position: "relative", left: "50vw"}}>
                             Add scenario
                         </Button>
+                        {this.state.showCreateScenarioModal && <CreateNewScenarioModal />}
                     </Toolbar>
                 </AppBar>
             </HideOnScroll>

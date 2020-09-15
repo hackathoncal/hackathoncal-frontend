@@ -36,6 +36,10 @@ class CreateNewScenarioModal extends Component {
         //  connect to createNodesTree component
     }
 
+    handleCancel = () => {
+        alert("Cancel")
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -45,6 +49,7 @@ class CreateNewScenarioModal extends Component {
                 </form>
                 <button onClick={this.handleCreateNodesTree}>Create nodes tree</button>
                 <button onClick={this.handleSaveNewScenario}>Save</button>
+                <button onClick={this.handleCancel}>Cancel</button>
             </React.Fragment>
         );
     }

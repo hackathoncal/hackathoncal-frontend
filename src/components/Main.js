@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import ShowScenario from "./showScenario";
 import "./Main.scss";
 import AddNewScenario from "./AddNewScenario";
-import Option from "./Option";
 
 class Main extends Component {
 
@@ -12,10 +11,9 @@ class Main extends Component {
         return (
             <React.Fragment>
                 <div>
-                    {/* {AddNewScenario(ShowScenario)}
-                    {Option()} */}
+                    <AddNewScenario/>
                 </div>
-                <ShowScenario />
+                {/*<ShowScenario />*/}
             </React.Fragment>
         );
     }

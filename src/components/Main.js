@@ -13,18 +13,25 @@ import CreateNewScenarioModal from "./CreateNewScenarioModal";
 
 
 class Main extends Component {
+    state = {
+        showCreateNewScenarioModal: false
+    }
+
+    handleShowCreateNewScenarioModalBtnClick = (showCreateNewScenarioModal) => {
+        this.setState({showCreateNewScenarioModal: showCreateNewScenarioModal})
+    }
 
     render() {
         return (
             <React.Fragment>
                 <Container fixed>
 
-                <AppBar />
-                <Search />
-                <Dropdown />
-                <ScenarioList />
+                <AppBar handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/>
+                {/*<Search />*/}
+                {/*<Dropdown />*/}
+                {/*<ScenarioList />*/}
                 {/*<ShowScenario />*/}
-                <CreateNewScenarioModal />
+                {this.state.showCreateNewScenarioModal && <CreateNewScenarioModal handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/> }
                 </Container>
             </React.Fragment>
         );

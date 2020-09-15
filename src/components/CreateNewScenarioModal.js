@@ -37,7 +37,7 @@ class CreateNewScenarioModal extends Component {
     }
 
     handleCancel = () => {
-        alert("Cancel")
+        this.props.handleShowCreateNewScenarioModalBtnClick(false)
     }
 
     render() {

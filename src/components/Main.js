@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import ShowScenario from "./showScenario";
 import "./Main.scss";
 import AddNewScenario from "./AddNewScenario";
-import Option from "./Option";
 import AppBar from "../components/app-bar/AppBar";
 import Search from "../components/search/Search";
 import ScenarioList from "../components/scenarios-list/ScenarioList";

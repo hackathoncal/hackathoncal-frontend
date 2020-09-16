@@ -48,9 +48,6 @@ export default function OutlinedCard() {
                 {/*    {'"a benevolent smile"'}*/}
                 </Typography>
             </CardContent>
-            <CardActions>
-                <Button size="small">Learn More</Button>
-            </CardActions>
         </Card>
     );
 }

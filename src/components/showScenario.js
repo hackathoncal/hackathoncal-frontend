@@ -78,7 +78,7 @@ export default function ShowScenario() {
             console.log(ids);
             setPreviousIDs(ids);
         }
-        
+
     }
 
     const handleBack = () => {
@@ -94,36 +94,38 @@ export default function ShowScenario() {
 
 
     return (
-        <><Container fixed>
-            <div className>
-                <Typography variant="h4" component="h4">
-                    {scenario.name}
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom>
-                    {scenario.description}
-                </Typography>
-            </div>
-            <SimpleCard text={getActiveNodeText()} learnMore={getActiveNodeTooltip()}/>
+        <>
+            <Container fixed>
+                <div className>
+                    <Typography variant="h4" component="h4">
+                        {scenario.name}
+                    </Typography>
+                    <Typography variant="subtitle1" gutterBottom>
+                        {scenario.description}
+                    </Typography>
+                </div>
+                <SimpleCard text={getActiveNodeText()} learnMore={getActiveNodeTooltip()} />
 
-            <OptionsButtons
-                options={getOptions()}
-                url={getActiveNodeUrl()}
-                selectOption={(id) => selectOption(id)}
-                updatePreviousIDs={(id) => updatePreviousIDs(id)}
-            />
+                <span style={{ display: "flex" }}>
+                    <OptionsButtons
+                        options={getOptions()}
+                        url={getActiveNodeUrl()}
+                        selectOption={(id) => selectOption(id)}
+                        updatePreviousIDs={(id) => updatePreviousIDs(id)}
+                    />
 
-            <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                disabled={backButtonDisabled}
-                onClick={handleBack}
-            // startIcon={<SaveIcon />}
-            >
-                Back
-            </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                        disabled={backButtonDisabled}
+                        onClick={handleBack}
+                    // startIcon={<SaveIcon />}
+                    >
+                        Back
+                    </Button>
+                </span>
             </Container>
-
         </>
     );
 }

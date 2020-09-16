@@ -27,11 +27,11 @@ class Main extends Component {
                 <Container fixed>
 
                 <AppBar handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/>
-                {/*<Search />*/}
-                {/*<DropDownListContainer />*/}
-                {/*<ScenariosContainer />*/}
-                {/*<ShowScenario />*/}
-                {/*{this.state.showCreateNewScenarioModal && <CreateNewScenario handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/> }*/}
+                <Search />
+                <DropDownListContainer />
+                <ScenariosContainer />
+                {/* <ShowScenario /> */}
+                {this.state.showCreateNewScenarioModal && <CreateNewScenario handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/> }
                 {this.state.showCreateNewScenarioModal &&
                     <CreateScenarioModal
                         showCreateNewScenarioModal={this.state.showCreateNewScenarioModal}

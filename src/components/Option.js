@@ -7,15 +7,15 @@ class Option extends React.Component{
 
     optionText = this.props.text || '';
 
-    state = {
-        id: '',
-        text: '',
-        next_node_id: null,
-    }
-
-    handleChange = (e) => {
-        this.setState({ text: e.target.value })
-    }
+    // state = {
+    //     id: '',
+    //     text: '',
+    //     next_node_id: null,
+    // }
+    //
+    // handleChange = (e) => {
+    //     this.setState({ text: e.target.value })
+    // }
 
     render() {
 
@@ -23,7 +23,7 @@ class Option extends React.Component{
             <div className={'option-div'}>
                 <Button variant={"contained"} className={'button text-btn'}>{this.optionText}</Button>
                 <button className={'button edit-btn'}>Edit</button>
-                <button className={'button delete-btn'} onClick={this.props.handleDelete}>Delete</button>
+                <button className={'button delete-btn'} onClick={(e, index)=>this.props.handleDelete(e, index)}>Delete</button>
                 <button className={'button next-btn'}>Create next node (optional)></button>
             </div>
         )

@@ -5,6 +5,11 @@ import './scenario.scss';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 
+const optionState = {
+        id: '',
+        text: '',
+        next_node_id: null,
+    }
 
 class CreateNodesTree extends React.Component {
 
@@ -12,39 +17,47 @@ class CreateNodesTree extends React.Component {
         id: '',
         text: "Can't lunch simulation",
         options: [],
+        tmpText: "",
     }
 
     handleOK = (e) => {
         e.preventDefault();
 
+        console.log('handling ok')
         const ops = [...this.state.options];
         const id = ops.length === 0 ? 1 : ops.length + 1; // id should come from BE
         const newOption = {
             id: id,
-            text: e.target.elements[0].value,
+            text: this.state.tmpText,
             next_node_id: null,
         };
 
         this.setState({ options: [...this.state.options, newOption]})
 
-    }
+    };
 
-    handleDelete = (e) => {
-        console.log(e.target);
-    }
+    handleDelete = (e, id) => {
+        const ops = this.state.options.filter((ops) => {
+            console.log(`opsID: ${ops.id} id: ${id}`);
+            return ops.id !== id
+        });
+        console.log(ops);
+        console.log(this.state.options)
+        this.setState({ options: ops })
+    };
 
     handleInputChange = (e) => {
-        this.setState()
-    }
+        this.setState({ tmpText: e.target.value })
+    };
 
     scenariosList = (options) => {
         const allOptions = options.map((opt, index) => {
-            return <Option text={opt.text} key={index} handleDelete={(e)=>this.handleDelete(e)}/>
-        })
+            return <Option text={opt.text} key={index} handleDelete={(e)=>this.handleDelete(e, index+1)}/>
+        });
         return  (
             <div>{allOptions}</div>
         )
-    }
+    };
 
     render() {
 

@@ -5,6 +5,8 @@ import './SimpleModal.scss';
 import TextField from "@material-ui/core/TextField";
 import DropDownListContainer from "./drop-downs/DropDownListContainer";
 import Button from '@material-ui/core/Button';
+import CreateNodesTree from "./CreateNodesTree";
+import Container from "@material-ui/core/Container";
 // import "./CreateScenarioModal.css";
 
 
@@ -29,7 +31,7 @@ export default function CreateScenarioModal(props) {
 
     const handleCreateNodes = () => {
         // render CreateNodes component
-        alert("create nodes");
+        props.handleShowCreateNodesTreeModalBtnClick(true);
     }
 
     const body = (
@@ -45,12 +47,19 @@ export default function CreateScenarioModal(props) {
                 {/* </form> */}
                 {/* <div className={'createButton'}> */}
                 <div className='create-button'>
-                <Button 
+                <Button
+                        onClick={handleCreateNodes}
                         variant="contained" 
                         color="primary">
                             Create nodes tree     
                 </Button>
                 </div>
+                <br/>
+                {props.showCreateNodesTreeModal &&
+                <CreateNodesTree
+                    showCreateNodesTreeModal={props.showCreateNodesTreeModal}
+                    handleShowCreateNodesTreeModalBtnClick={props.handleShowCreateNodesTreeModalBtnClick}
+                /> }
                 <br/>
                 <div className='save-cancel-button'>
                     <Button className="save-cancel-button" 

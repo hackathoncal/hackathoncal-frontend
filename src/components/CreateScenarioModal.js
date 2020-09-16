@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import './SimpleModal.scss'
 import TextField from "@material-ui/core/TextField";
+import DropDownListContainer from "./drop-downs/DropDownListContainer";
 
 export default function CreateScenarioModal(props) {
     const [modalStyle] = React.useState();
@@ -35,6 +36,7 @@ export default function CreateScenarioModal(props) {
                 <form noValidate autoComplete="off">
                     <TextField id="outlined-search" label="Name" type="search" variant="outlined" />
                     <TextField id="outlined-search" label="Description" type="search" variant="outlined" />
+                    <DropDownListContainer />
                 </form>
                 <button onClick={handleCreateNodes}>Create nodes tree</button>
                 <button onClick={handleSave}>Save</button>

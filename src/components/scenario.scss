@@ -1,5 +1,5 @@
 .txt-field {
-  width: 60%;
+  width: 100%;
 
 }
 
@@ -24,7 +24,8 @@
 }
 
 .option-div {
-  display: inline;
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr 2fr;
   //width: 95%;
   height: 25px;
 }
@@ -37,19 +38,19 @@
 }
 
 .text-btn {
-  width: 60%;
+  //width: 60%;
 }
 
 .edit-btn {
-  background-color: cornflowerblue;
+  //background-color: cornflowerblue;
 }
 
 .delete-btn {
-  background-color: red;
+  //background-color: red;
 }
 
 .cancel-btn{
-  background-color: red;
+  //background-color: red;
 }
 
 .next-btn {
@@ -58,4 +59,8 @@
 
 .save-btn {
   background-color: greenyellow;
+}
+
+.optionsContainer {
+  display: grid;
 }

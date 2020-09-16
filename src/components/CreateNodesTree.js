@@ -63,9 +63,16 @@ class CreateNodesTree extends React.Component {
             return this.createNewOption(opt, index)
         });
         return  (
-            <div>{allOptions}</div>
+            <div className={'optionsContainer'}>{allOptions}</div>
         )
     };
+
+    handleCancelClick = () => this.props.handleShowCreateNodesTreeModalBtnClick(false);
+
+    handleSaveClick = () => {
+        alert('Save');
+        this.props.handleShowCreateNodesTreeModalBtnClick(false);
+    }
 
     render() {
 
@@ -83,9 +90,8 @@ class CreateNodesTree extends React.Component {
                     handleInputChange={(e)=>this.handleInputChange(e)}/>
                 <div>
                     <div className={'footer'}>
-                        <Button variant={"contained"} color={"secondary"} size={"small"}>Cancel</Button>
-                        <Button variant={"contained"} color={"primary"} size={"small"}>Save</Button>
-
+                        <Button onClick={this.handleCancelClick} variant={"contained"} color={"secondary"} size={"small"}>Cancel</Button>
+                        <Button onClick={this.handleSaveClick} variant={"contained"} color={"primary"} size={"small"}>Save</Button>
                     </div>
                 </div>
             </Container>

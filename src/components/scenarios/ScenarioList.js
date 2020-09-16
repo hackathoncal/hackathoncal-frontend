@@ -29,8 +29,8 @@ function ScenarioList({scenarios, getScenariosList, createScenario}) {
     let scenariosList = [
         {
             "id": 1,
-            "name": "Can't pass powerup",
-            "description": "Loren inspam ",
+            "name": "Matlab is not working",
+            "description": "When trying to open Matlab utility on tool",
             "tags": ["git", "MATLAB", "Devops"],
             "category": "MATLAB",
             "date": "14.09.2020",
@@ -38,7 +38,7 @@ function ScenarioList({scenarios, getScenariosList, createScenario}) {
         },
         {
             "id": 2,
-            "name": "Can't pass bs2 bft",
+            "name": "bs2 bft failed - File is already open",
             "description": "Loren inspam ",
             "tags": ["git", "MATLAB", "Devops"],
             "category": "MATLAB",
@@ -47,7 +47,7 @@ function ScenarioList({scenarios, getScenariosList, createScenario}) {
         },
         {
             "id": 3,
-            "name": "Can't pass bs2 bft",
+            "name": "Can't pass powerup",
             "description": "Loren inspam ",
             "tags": ["git", "Devops"],
             "category": "MATLAB",

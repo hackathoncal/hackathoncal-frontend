@@ -42,7 +42,6 @@ const MenuProps = {
 const names = [
     'Matlab',
     'Git',
-    'April Tucker',
     'Powerup',
     'IP crush',
     'Laser',

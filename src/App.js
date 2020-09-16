@@ -1,17 +1,12 @@
 import React from 'react';
-import './App.css';
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch
-} from "react-router-dom";
 
-import Main from "./components/Main";
-
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import {Provider} from "react-redux";
 import store from "./redux/store";
 
+import './App.css';
+import Main from "./components/Main";
 
 function App() {
     return (

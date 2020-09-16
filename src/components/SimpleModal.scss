@@ -7,8 +7,31 @@
 .modal-main-div {
   position: absolute;
   width: 600px;
-  background-color: lightgoldenrodyellow;
+  background-color: white;
   border: 2px solid #000;
   margin: 150px;
   padding: 10px;
+}
+
+.modal-div {
+  display: grid;
+  grid-template-rows: repeat(6);
+}
+
+.save-cancel-button {
+  // display: grid;
+  // grid-auto-columns: auto;
+  margin-left: 400px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.simple-modal-title {
+  text-align: center;
+  font-size: 25px;
+}
+
+.create-button {
+  width: 500px;
+  padding-top: 50px;
 }

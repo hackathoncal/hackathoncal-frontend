@@ -130,7 +130,82 @@ export const nodes = [{
         text: "Open page",
         next_node: null 
     }],
-}
+},{
+        id: 301,
+        text: "Did you push the commit?",
+        tooltip: "",
+        url: null,
+        options: [{
+            text: "Yes",
+            next_node: 302
+        },{
+            text: "No",
+            next_node: 303
+        }],
+},{
+        id: 302,
+        text: "Contact Devops",
+        tooltip: "Devops_Service_Desk@AMAT.onmicrosoft.com",
+        url: null,
+        options: {
+            text: "Open Outlook",
+            next_node: null
+        },
+    },{
+        id: 303,
+        text: "Is this the last commit you did?",
+        tooltip: "",
+        url: null,
+        options: [{
+            text: "Yes",
+            next_node: 304
+        },{
+            text: "No",
+            next_node: 305
+        }],
+    },{
+        id: 304,
+        text: "open 'How To Commit Ammend' confluence page",
+        tooltip: "",
+        url: "http://dcilpa317:8090/display/SysSW/Calibrations+SW+Home",
+        options: {
+            text: "Open page",
+            next_node: null
+        },
+    },{
+        id: 305,
+        text: "Is it only due to invalid Jira ID?",
+        tooltip: "Search for reason in failure log",
+        url: null,
+        options: [{
+            text: "Yes",
+            next_node: 306
+        },{
+            text: "No",
+            next_node: 307
+        }],
+    },{
+        id: 306,
+        text: "Ask DevOps | branch owner for delivery permission to the branch",
+        tooltip: "",
+        url: null,
+        options: [{
+            text: "Got permission",
+            next_node: null
+        },{
+            text: "Didn't got permission",
+            next_node: 307
+        }],
+    },{
+        id: 307,
+        text: "open 'How To Git Rebase' page",
+        tooltip: "",
+        url: "http://dcilpa317:8090/display/SysSW/Calibrations+SW+Home",
+        options: {
+            text: "Open page",
+            next_node: null
+        },
+    }
 ];
 
 
@@ -142,4 +217,14 @@ export const scenario1 = {
     category: "matlab",
     owners: ["Ariel", "Lior Cohen", "Gary Dickerson"],
     first_node: 111,
+};
+
+export const scenario2 = {
+    id: 2,
+    name: "I wrote a wrong commit message",
+    description: "I wrote a wrong commit message",
+    tags: ["push", "git"],
+    category: "git",
+    owners: ["Ariel", "Lior Cohen", "Gary Dickerson"],
+    first_node: 301,
 };

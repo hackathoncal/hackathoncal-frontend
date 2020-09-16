@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Button from '@material-ui/core/Button';
 import './scenario.scss';
 
 
@@ -20,7 +21,7 @@ class Option extends React.Component{
 
         return (
             <div className={'option-div'}>
-                <button className={'button text-btn'} onChange={this.handleChange}>{this.optionText}</button>
+                <Button variant={"contained"} className={'button text-btn'}>{this.optionText}</Button>
                 <button className={'button edit-btn'}>Edit</button>
                 <button className={'button delete-btn'} onClick={this.props.handleDelete}>Delete</button>
                 <button className={'button next-btn'}>Create next node (optional)></button>

@@ -1,11 +1,21 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input'
 import './SimpleModal.scss'
-import Option from "./Option";
-import Search from "./search/Search";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    },
+}));
 
 export default function SimpleModal(props) {
+
+    const classes = useStyles();
     const [modalStyle] = React.useState();
     const [open, setOpen] = React.useState(false);
 
@@ -26,10 +36,10 @@ export default function SimpleModal(props) {
         <div style={modalStyle} className={'modal-main-div'}>
             <h4 id="simple-modal-title">Add Option</h4>
             <div className={'modal-div'}>
-                <form onSubmit={(e)=>handleSubmit(e)}>
+                <form className={classes.root} >
                     <label className={'modal-label'}>Text:</label>
-                    <input className={'modal-text'} autoFocus={true}/>
-                    <button className={'button save-btn'}>Save</button>
+                    <Input  className={'modal-text'} autoFocus={true} onChange={props.handleInputChange}/>
+                    <Button variant={"contained"} color={"primary"} size={"small"} className={'button save-btn'} onClick={(e)=>handleSubmit(e)}>Save</Button>
                 </form>
             </div>
 

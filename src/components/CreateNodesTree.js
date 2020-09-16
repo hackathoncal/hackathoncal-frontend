@@ -2,9 +2,11 @@ import * as React from 'react';
 import Option from "./Option";
 import SimpleModal from './SimpleModal'
 import './scenario.scss';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
 
 
-class AddNewScenario extends React.Component {
+class CreateNodesTree extends React.Component {
 
     state = {
         id: '',
@@ -31,6 +33,10 @@ class AddNewScenario extends React.Component {
         console.log(e.target);
     }
 
+    handleInputChange = (e) => {
+        this.setState()
+    }
+
     scenariosList = (options) => {
         const allOptions = options.map((opt, index) => {
             return <Option text={opt.text} key={index} handleDelete={(e)=>this.handleDelete(e)}/>
@@ -43,7 +49,7 @@ class AddNewScenario extends React.Component {
     render() {
 
         return (
-            <div className={'main-div'}>
+            <Container maxWidth={"md"} className={"main-div"}>
                 <textarea className={'txt-field textarea'}>{this.state.text}</textarea>
                 <br/>
                 <div className={"options-id"}>
@@ -53,16 +59,17 @@ class AddNewScenario extends React.Component {
                     open={false}
                     text={"+"}
                     handleOK={this.handleOK}
-                    state={this.state}/>
+                    handleInputChange={(e)=>this.handleInputChange(e)}/>
                 <div>
                     <div className={'footer'}>
-                        <button className={'button cancel-btn'}>Cancel</button>
-                        <button className={'button save-btn'}>Save</button>
+                        <Button variant={"contained"} color={"secondary"} size={"small"}>Cancel</Button>
+                        <Button variant={"contained"} color={"primary"} size={"small"}>Save</Button>
+
                     </div>
                 </div>
-            </div>
+            </Container>
         )
     }
 }
 
-export default AddNewScenario;
+export default CreateNodesTree;

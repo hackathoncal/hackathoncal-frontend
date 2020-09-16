@@ -12,6 +12,7 @@ import SimpleCard from './cardComponent';
 
 import { scenario1, nodes } from "./constants";
 import OptionsButtons from "./optionGroup";
+import {connect} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,10 +26,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function ShowScenario() {
+function ShowScenario(props) {
     const classes = useStyles();
 
-    const scenario = scenario1;
+    // const scenario = scenario1;
+    const scenario = props.curScenario ? props.curScenario : scenario1;
+
     const allNodes = nodes;
 
     const firstNodeID = scenario.first_node;
@@ -129,3 +132,11 @@ export default function ShowScenario() {
         </>
     );
 }
+
+const mapStateToProps = (state) => {
+    return ({
+        curScenario: state.reducer.curScenario
+    });
+}
+
+export default connect(mapStateToProps)(ShowScenario);

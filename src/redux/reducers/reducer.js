@@ -28,7 +28,7 @@ import {
 } from "../types";
 
 const initialState = {
-    scenarios: [],
+    scenarios: "",
     curScenario: null, // TODO: should there be curScenarioID as well??
     curNode: null,//""
     curOption: null,//""
@@ -37,7 +37,7 @@ const initialState = {
     error: ""
 };
 
-const counterReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         // Scenarios:
         case CREATE_SCENARIO:
@@ -49,14 +49,13 @@ const counterReducer = (state = initialState, action) => {
         case GET_SCENARIOS_LIST:
             return {
                 ...state,
-                scenarios: action.payload
+                scenarios:  action.payload
             };
 
         case GET_SCENARIO:
             return {
                 ...state,
                 curScenario: action.payload
-
             };
 
         case EDIT_SCENARIO:
@@ -131,7 +130,7 @@ const counterReducer = (state = initialState, action) => {
 
         // Errors:    
         case ERROR:
-            console.error("Error from counterReducer: " + action.payload);
+            console.error("Error from reducer: " + action.payload);
             return {
                 ...state,
                 error: action.payload
@@ -142,4 +141,4 @@ const counterReducer = (state = initialState, action) => {
     }
 };
 
-export default counterReducer;
+export default reducer;

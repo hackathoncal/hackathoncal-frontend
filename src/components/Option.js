@@ -21,10 +21,10 @@ class Option extends React.Component{
 
         return (
             <div className={'option-div'}>
-                <Button variant={"contained"} className={'button text-btn'}>{this.optionText}</Button>
-                <button className={'button edit-btn'}>Edit</button>
-                <button className={'button delete-btn'} onClick={(e, index)=>this.props.handleDelete(e, index)}>Delete</button>
-                <button className={'button next-btn'}>Create next node (optional)></button>
+                <Button className={'button text-btn'} variant={"contained"} onClick={()=>{}}>{this.optionText}</Button>
+                <button className={'button edit-btn'} variant={"contained"} onClick={()=>{}} color="primary" >Edit</button>
+                <button className={'button delete-btn'} variant={"contained"} onClick={(e, index)=>this.props.handleDelete(e, index)} color="secondary">Delete</button>
+                <button className={'button next-btn'}>Create next node></button>
             </div>
         )
     }

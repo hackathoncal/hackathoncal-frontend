@@ -31,11 +31,12 @@ import {
 } from "../types";
 
 
-const baseURL = "http://localhost:8080";
+const baseURL = "http://localhost:5000";
 
 // Scenarios:
 export const createScenario = (curScenario) => async dispatch => {
-    console.log(`Adding Scenario... ${curScenario}`);
+    // console.log(`Adding Scenario... ${curScenario}`);
+    console.log(curScenario);
     const config = {
         headers: {
             "Content-Type": "application/json"
@@ -45,12 +46,12 @@ export const createScenario = (curScenario) => async dispatch => {
 
         // Validate data..
 
-        const response = await axios.post(`${baseURL}/scenarios`, curScenario, config);
-        const data =  response.data;
+        // const response = await axios.post(`${baseURL}/scenarios`, curScenario, config);
+        // const data =  response.data;
 
         dispatch({
             type: CREATE_SCENARIO,
-            payload: data
+            payload: curScenario
         });
     } catch (error) {
         dispatch({
@@ -71,7 +72,7 @@ export const getScenariosList = () => async dispatch => {
 
         const response = await axios.get(`${baseURL}/scenarios`, config);
         const data =  response.data;
-
+        console.log(response.data );
         dispatch({
             type: GET_SCENARIOS_LIST,
             payload: data

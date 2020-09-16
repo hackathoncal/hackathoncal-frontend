@@ -29,7 +29,7 @@ export default function SimpleModal(props) {
 
     const handleSubmit = (e) => {
         handleClose();
-        props.handleOK(e,1)
+        props.handleOK(e);
     }
 
     const body = (

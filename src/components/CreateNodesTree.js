@@ -1,11 +1,10 @@
 import * as React from 'react';
-import Option from "./Option";
 import SimpleModal from './SimpleModal'
 import './scenario.scss';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 
-const optionState = {
+const OPTION_STATE = {
         id: '',
         text: '',
         next_node_id: null,
@@ -18,41 +17,50 @@ class CreateNodesTree extends React.Component {
         text: "Can't lunch simulation",
         options: [],
         tmpText: "",
+        idCounter: 0,
     }
 
     handleOK = (e) => {
         e.preventDefault();
 
-        console.log('handling ok')
-        const ops = [...this.state.options];
-        const id = ops.length === 0 ? 1 : ops.length + 1; // id should come from BE
+        const id = this.state.idCounter + 1;
         const newOption = {
             id: id,
             text: this.state.tmpText,
             next_node_id: null,
         };
 
-        this.setState({ options: [...this.state.options, newOption]})
+        this.setState({ options: [...this.state.options, newOption]});
+        this.setState({ idCounter: id })
 
+    };
+
+    createNewOption = (props, index) => {
+        const optionText = props.text || '';
+        return (
+            <div className={'option-div'} key={index}>
+                <Button variant={"contained"} className={'button text-btn'}>{optionText}</Button>
+                <button className={'button edit-btn'}>Edit</button>
+                <button className={'button delete-btn'} onClick={(e)=>this.handleDelete(e, props.id)}>Delete</button>
+                <button className={'button next-btn'}>Create next node (optional)></button>
+            </div>
+        )
     };
 
     handleDelete = (e, id) => {
         const ops = this.state.options.filter((ops) => {
-            console.log(`opsID: ${ops.id} id: ${id}`);
             return ops.id !== id
         });
-        console.log(ops);
-        console.log(this.state.options)
-        this.setState({ options: ops })
+        this.setState({ options: ops });
     };
 
     handleInputChange = (e) => {
-        this.setState({ tmpText: e.target.value })
+        this.setState({ tmpText: e.target.value });
     };
 
     scenariosList = (options) => {
         const allOptions = options.map((opt, index) => {
-            return <Option text={opt.text} key={index} handleDelete={(e)=>this.handleDelete(e, index+1)}/>
+            return this.createNewOption(opt, index)
         });
         return  (
             <div>{allOptions}</div>

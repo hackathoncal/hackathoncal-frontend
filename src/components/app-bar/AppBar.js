@@ -49,6 +49,7 @@ export default function HideAppBar(props) {
 
     const classes = useStyles();
 
+
     return (
         <React.Fragment>
             <CssBaseline />

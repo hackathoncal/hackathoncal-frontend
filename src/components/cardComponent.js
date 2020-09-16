@@ -31,7 +31,7 @@ export default function SimpleCard(props) {
 
     const { text, learnMore } = props;
 
-    const learnMoreName = expanded ? "Learn Less" : "Learn More";
+    const learnMoreName = expanded ? "Show Less" : "Learn More";
 
     const handleExpand = () => {
         setExpanded(!expanded);

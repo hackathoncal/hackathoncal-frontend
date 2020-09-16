@@ -1,8 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import './SimpleModal.scss'
+import './SimpleModal.scss';
 import TextField from "@material-ui/core/TextField";
+import DropDownListContainer from "./drop-downs/DropDownListContainer";
+import Button from '@material-ui/core/Button';
+// import "./CreateScenarioModal.css";
+
 
 export default function CreateScenarioModal(props) {
     const [modalStyle] = React.useState();
@@ -30,15 +34,41 @@ export default function CreateScenarioModal(props) {
 
     const body = (
         <div style={modalStyle} className={'modal-main-div'}>
-            <h4 id="simple-modal-title">Add New Scenario</h4>
+            <h4 className="simple-modal-title" id="simple-modal-title">Add New Scenario</h4>
             <div className={'modal-div'}>
-                <form noValidate autoComplete="off">
+                {/* <form noValidate autoComplete="off"> */}
                     <TextField id="outlined-search" label="Name" type="search" variant="outlined" />
+                    <br/>
                     <TextField id="outlined-search" label="Description" type="search" variant="outlined" />
-                </form>
-                <button onClick={handleCreateNodes}>Create nodes tree</button>
-                <button onClick={handleSave}>Save</button>
-                <button onClick={handleClose}>Cancel</button>
+                    <DropDownListContainer />
+                    <br/>
+                {/* </form> */}
+                {/* <div className={'createButton'}> */}
+                <div className='create-button'>
+                <Button 
+                        variant="contained" 
+                        color="primary">
+                            Create nodes tree     
+                </Button>
+                </div>
+                <br/>
+                <div className='save-cancel-button'>
+                    <Button className="save-cancel-button" 
+                            // size="small" 
+                            variant="contained" 
+                            color="primary" 
+                            onClick={handleSave}>
+                                Save
+                    </Button>
+                    <Button 
+                            className="save-cancel-button" 
+                            // size="small" 
+                            variant="contained" 
+                            color="secondary" 
+                            onClick={handleClose}>
+                                Cancel
+                    </Button>
+                </div>
             </div>
         </div>
     );

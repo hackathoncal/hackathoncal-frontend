@@ -9,7 +9,6 @@ import ScenariosContainer from "../components/scenarios/ScenariosContainer";
 import DropDownListContainer from "../components/drop-downs/DropDownListContainer";
 import Container from '@material-ui/core/Container';
 import CreateNewScenario from "./CreateNewScenario";
-import CreateScenarioModal from "./CreateScenarioModal";
 
 
 class Main extends Component {
@@ -26,17 +25,20 @@ class Main extends Component {
             <React.Fragment>
                 <Container fixed>
 
+<<<<<<< HEAD
                 <AppBar handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/>
+                {/*<Search />*/}
+                {/*<Dropdown />*/}
+                {/*<ScenarioList />*/}
+                <ShowScenario />
+                {this.state.showCreateNewScenarioModal && <CreateNewScenario handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/> }
+=======
+                <AppBar />
                 <Search />
                 <DropDownListContainer />
                 <ScenariosContainer />
-                {/* <ShowScenario /> */}
-                {this.state.showCreateNewScenarioModal && <CreateNewScenario handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/> }
-                {this.state.showCreateNewScenarioModal &&
-                    <CreateScenarioModal
-                        showCreateNewScenarioModal={this.state.showCreateNewScenarioModal}
-                        handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}
-                    /> }
+                {/*<ShowScenario />*/}
+>>>>>>> 9ffcbd82259273ff81d230854beed6ea46e9d7b2
                 </Container>
             </React.Fragment>
         );

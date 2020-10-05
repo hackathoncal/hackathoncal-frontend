@@ -49,6 +49,7 @@ export default function HideAppBar(props) {
 
     const classes = useStyles();
 
+
     return (
         <React.Fragment>
             <CssBaseline />
@@ -56,7 +57,7 @@ export default function HideAppBar(props) {
                 <AppBar>
                     <Toolbar>
                         <Typography variant="h6">Hackathon 2020: CALIBRATION GROUP </Typography>
-                        <Button size="large" className={classes.margin} style={{color: "white", backgroundColor:"green",position: "relative", left: "50vw"}}>
+                        <Button onClick={() => props.handleShowCreateNewScenarioModalBtnClick(true)} size="large" className={classes.margin} style={{color: "white", backgroundColor:"green",position: "relative", left: "50vw"}}>
                             Add scenario
                         </Button>
                     </Toolbar>

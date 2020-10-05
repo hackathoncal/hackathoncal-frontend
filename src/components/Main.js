@@ -1,63 +1,60 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import ShowScenario from "./showScenario";
+import React from "react";
 import "./Main.scss";
 import AppBar from "../components/app-bar/AppBar";
-import Search from "../components/search/Search";
+import AutoCompleteSearch from "../components/search/AutoCompleteSearch";
 import ScenariosContainer from "../components/scenarios/ScenariosContainer";
 import DropDownListContainer from "../components/drop-downs/DropDownListContainer";
 import Container from '@material-ui/core/Container';
-import CreateNewScenario from "./CreateNewScenario";
 import CreateScenarioModal from "./CreateScenarioModal";
-import CreateNodesTree from "./CreateNodesTree";
+import {useDispatch} from "react-redux";
+import actions from "../redux/actions/action";
+import Card from "@material-ui/core/Card/Card";
 
+function Main() {
+    const dispatch = useDispatch();
+    const getListScenarios = () => dispatch(actions.getScenariosList());
+    const getCategoriesList = () => dispatch(actions.getCategoriesList());
+    const getTagsList = () => dispatch(actions.getTagsList());
+    const getNodeList = () => dispatch(actions.getNodeList());
+    const [showCreateNewScenarioModal, setShowCreateNewScenarioModal] = React.useState(false);
+    const [showCreateNodesTreeModal, setShowCreateNodesTreeModal] = React.useState(false);
 
-class Main extends Component {
-    state = {
-        showCreateNewScenarioModal: false,
-        showCreateNodesTreeModal: false
-    }
+    const handleShowCreateNewScenarioModalBtnClick = (showCreateNewScenarioModal) => {
+        setShowCreateNewScenarioModal(showCreateNewScenarioModal)
+    };
 
-    handleShowCreateNewScenarioModalBtnClick = (showCreateNewScenarioModal) => {
-        this.setState({showCreateNewScenarioModal: showCreateNewScenarioModal})
-    }
+    const handleShowCreateNodesTreeModalBtnClick = (showCreateNodesTreeModal) => {
+        setShowCreateNodesTreeModal(showCreateNodesTreeModal)
+    };
 
-    handleShowCreateNodesTreeModalBtnClick = (showCreateNodesTreeModal) => {
-        this.setState({showCreateNodesTreeModal: showCreateNodesTreeModal})
-    }
+    React.useEffect(() => {
+        getListScenarios();
+        getTagsList();
+        getCategoriesList();
+        getNodeList();
+    }, []);
 
-    render() {
-        return (
-            <React.Fragment>
-                <Container fixed>
-                <AppBar handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/>
-                <Search />
-                <DropDownListContainer />
-                <ScenariosContainer />
-                {/* <ShowScenario /> */}
-                {/*{this.state.showCreateNewScenarioModal && <CreateNewScenario handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}/> }*/}
-                {this.state.showCreateNewScenarioModal &&
-                    <CreateScenarioModal
-                        showCreateNewScenarioModal={this.state.showCreateNewScenarioModal}
-                        showCreateNodesTreeModal={this.state.showCreateNodesTreeModal}
-                        handleShowCreateNewScenarioModalBtnClick={this.handleShowCreateNewScenarioModalBtnClick}
-                        handleShowCreateNodesTreeModalBtnClick={this.handleShowCreateNodesTreeModalBtnClick}
-                    />
+    return (
+        <React.Fragment>
+            <Container fixed>
+                <AppBar handleShowCreateNewScenarioModalBtnClick={handleShowCreateNewScenarioModalBtnClick}/>
+                <Card className={"card-main"} variant="outlined" >
+                    <AutoCompleteSearch/>
+                    <DropDownListContainer/>
+                </Card>
+                <ScenariosContainer/>
+                {showCreateNewScenarioModal &&
+                <CreateScenarioModal
+                    showCreateNewScenarioModal={showCreateNewScenarioModal}
+                    showCreateNodesTreeModal={showCreateNodesTreeModal}
+                    handleShowCreateNewScenarioModalBtnClick={handleShowCreateNewScenarioModalBtnClick}
+                    handleShowCreateNodesTreeModalBtnClick={handleShowCreateNodesTreeModalBtnClick}
+                />
                 }
-                </Container>
-            </React.Fragment>
-        );
-    }
+            </Container>
+        </React.Fragment>
+    );
 }
 
-const mapStateToProps = (state) => ({
-});
 
-const mapDispatchToProps = (dispatch) => {
-    // test
-    return {
-
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

@@ -8,8 +8,12 @@ import {
     GET_SCENARIO,
     EDIT_SCENARIO,
     DELETE_SCENARIO,
-    
+    SET_FILTER,
+    CLEAR_FILTER,
+    SET_CUR_SCENARIO,
+
     // Nodes:
+    GET_NODE_LIST,
     CREATE_NODE,
     GET_NODE,
     UPDATE_NODE,
@@ -25,7 +29,7 @@ import {
 
     // Categories:
     GET_CATEGORIES_LIST,
-    
+
     // Error:
     ERROR
 } from "../types";
@@ -63,16 +67,11 @@ export const createScenario = (curScenario) => async dispatch => {
 
 export const getScenariosList = () => async dispatch => {
     console.log(`Getting scenarios list..`);
-    const config = {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
     try {
 
-        const response = await axios.get(`${baseURL}/scenarios`, config);
-        const data =  response.data;
-        console.log(response.data );
+        const response = await axios.get(`${baseURL}/scenarios`);
+        const data = response.data;
+        console.log(response.data);
         dispatch({
             type: GET_SCENARIOS_LIST,
             payload: data
@@ -86,23 +85,18 @@ export const getScenariosList = () => async dispatch => {
     }
 };
 
-export const getScenario = (scenarioID) => async dispatch => {
+const getScenario =(scenarioID) => async dispatch =>  {
     console.log(`Getting scenario by ID: ${scenarioID}`);
-    const config = {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
     try {
 
-        const response = await axios.get(`${baseURL}/scenarios/${scenarioID}`, config);
-        const data =  response.data;
+        const response = await axios.get(`${baseURL}/scenarios/${scenarioID}`);
+        const data = response.data;
 
         dispatch({
             type: GET_SCENARIO,
             payload: data
         });
-        
+
     } catch (error) {
         dispatch({
             type: ERROR,
@@ -111,7 +105,14 @@ export const getScenario = (scenarioID) => async dispatch => {
     }
 };
 
-export const editScenario = (scenarioID) => async dispatch => {
+const setCurScenario = (scenario) =>  {
+    return {
+        type: SET_CUR_SCENARIO,
+        payload: scenario
+    }
+};
+
+const editScenario = (scenarioID) => async dispatch => {
     console.log(`Edit scenario (ID): ${scenarioID}`);
     const config = {
         headers: {
@@ -121,13 +122,13 @@ export const editScenario = (scenarioID) => async dispatch => {
     try {
 
         const response = await axios.put(`${baseURL}/scenarios/${scenarioID}`, config);
-        const data =  response.data;
+        const data = response.data;
 
         dispatch({
             type: EDIT_SCENARIO,
             payload: data
         });
-        
+
     } catch (error) {
         dispatch({
             type: ERROR,
@@ -136,7 +137,7 @@ export const editScenario = (scenarioID) => async dispatch => {
     }
 };
 
-export const deleteScenario = (scenarioID) => async dispatch => {
+const deleteScenario = (scenarioID) => async dispatch => {
     console.log(`Deleting scenario (ID): ${scenarioID}`);
     const config = {
         headers: {
@@ -146,13 +147,13 @@ export const deleteScenario = (scenarioID) => async dispatch => {
     try {
 
         const response = await axios.delete(`${baseURL}/scenarios/${scenarioID}`, config);
-        const data =  response.data;
+        const data = response.data;
 
         dispatch({
             type: DELETE_SCENARIO,
             payload: data
         });
-        
+
     } catch (error) {
         dispatch({
             type: ERROR,
@@ -161,8 +162,40 @@ export const deleteScenario = (scenarioID) => async dispatch => {
     }
 };
 
+
+const setFilterScenarios = (scenarios) => {
+    return {
+        type: SET_FILTER,
+        payload: scenarios
+    }
+};
+
+const clearFilterScenarios = () => {
+    return {
+        type: CLEAR_FILTER
+    }
+};
+
+
 // Nodes:
-export const createNode = (curNode) => async dispatch => {
+const getNodeList = () => async dispatch => {
+    try {
+        const response = await axios.get(`${baseURL}/nodes`);
+        const data = response.data;
+        dispatch({
+            type: GET_NODE_LIST,
+            payload: data
+        });
+    }
+    catch (e) {
+        dispatch({
+            type: ERROR,
+            payload: e.response
+        });
+    }
+};
+
+const createNode = (curNode) => async dispatch => {
     console.log(`Create node... ${curNode}`);
     const config = {
         headers: {
@@ -174,7 +207,7 @@ export const createNode = (curNode) => async dispatch => {
         // Validate data..
 
         const response = await axios.post(`${baseURL}/nodes`, curNode, config);
-        const data =  response.data;
+        const data = response.data;
 
         dispatch({
             type: CREATE_NODE,
@@ -188,7 +221,7 @@ export const createNode = (curNode) => async dispatch => {
     }
 };
 
-export const getNode = (nodeID) => async dispatch => {
+const getNode = (nodeID) => async dispatch => {
     console.log(`Getting node by ID: ${nodeID}`);
     const config = {
         headers: {
@@ -198,13 +231,13 @@ export const getNode = (nodeID) => async dispatch => {
     try {
 
         const response = await axios.get(`${baseURL}/nodes/${nodeID}`, config);
-        const data =  response.data;
+        const data = response.data;
 
         dispatch({
             type: GET_NODE,
             payload: data
         });
-        
+
     } catch (error) {
         dispatch({
             type: ERROR,
@@ -213,7 +246,7 @@ export const getNode = (nodeID) => async dispatch => {
     }
 };
 
-export const updateNode = (nodeID, curNode) => async dispatch => {
+const updateNode = (nodeID, curNode) => async dispatch => {
     console.log(`Updating node (ID): ${nodeID}`);
     const config = {
         headers: {
@@ -223,13 +256,13 @@ export const updateNode = (nodeID, curNode) => async dispatch => {
     try {
 
         const response = await axios.put(`${baseURL}/nodes/${nodeID}`, curNode, config);
-        const data =  response.data;
+        const data = response.data;
 
         dispatch({
             type: UPDATE_NODE,
             payload: data
         });
-        
+
     } catch (error) {
         dispatch({
             type: ERROR,
@@ -238,7 +271,7 @@ export const updateNode = (nodeID, curNode) => async dispatch => {
     }
 };
 
-export const deleteNode = (nodeID) => async dispatch => {
+const deleteNode = (nodeID) => async dispatch => {
     console.log(`Deleting node (ID): ${nodeID}`);
     const config = {
         headers: {
@@ -248,13 +281,13 @@ export const deleteNode = (nodeID) => async dispatch => {
     try {
 
         const response = await axios.delete(`${baseURL}/nodes/${nodeID}`, config);
-        const data =  response.data;
+        const data = response.data;
 
         dispatch({
             type: DELETE_NODE,
             payload: data
         });
-        
+
     } catch (error) {
         dispatch({
             type: ERROR,
@@ -264,7 +297,7 @@ export const deleteNode = (nodeID) => async dispatch => {
 };
 
 // Options:
-export const createOption = (curOption) => async dispatch => {
+const createOption = (curOption) => async dispatch => {
     console.log(`Create option... ${curOption}`);
     const config = {
         headers: {
@@ -276,7 +309,7 @@ export const createOption = (curOption) => async dispatch => {
         // Validate data..
 
         const response = await axios.post(`${baseURL}/options`, curOption, config);
-        const data =  response.data;
+        const data = response.data;
 
         dispatch({
             type: CREATE_OPTION,
@@ -290,7 +323,7 @@ export const createOption = (curOption) => async dispatch => {
     }
 };
 
-export const updateOption = (optionID, curOption) => async dispatch => {
+const updateOption = (optionID, curOption) => async dispatch => {
     console.log(`Updating option (ID): ${optionID}`);
     const config = {
         headers: {
@@ -300,13 +333,13 @@ export const updateOption = (optionID, curOption) => async dispatch => {
     try {
 
         const response = await axios.put(`${baseURL}/options/${optionID}`, curOption, config);
-        const data =  response.data;
+        const data = response.data;
 
         dispatch({
             type: UPDATE_OPTION,
             payload: data
         });
-        
+
     } catch (error) {
         dispatch({
             type: ERROR,
@@ -315,7 +348,7 @@ export const updateOption = (optionID, curOption) => async dispatch => {
     }
 };
 
-export const deleteOption = (optionID) => async dispatch => {
+const deleteOption = (optionID) => async dispatch => {
     console.log(`Deleting node (ID): ${optionID}`);
     const config = {
         headers: {
@@ -325,13 +358,13 @@ export const deleteOption = (optionID) => async dispatch => {
     try {
 
         const response = await axios.delete(`${baseURL}/options/${optionID}`, config);
-        const data =  response.data;
+        const data = response.data;
 
         dispatch({
             type: DELETE_OPTION,
             payload: data
         });
-        
+
     } catch (error) {
         dispatch({
             type: ERROR,
@@ -341,17 +374,12 @@ export const deleteOption = (optionID) => async dispatch => {
 };
 
 // Tags:
-export const getTagsList = () => async dispatch => {
+const getTagsList = () => async dispatch => {
     console.log(`Getting tags list..`);
-    const config = {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
     try {
 
-        const response = await axios.get(`${baseURL}/tags`, config);
-        const data =  response.data;
+        const response = await axios.get(`${baseURL}/tags`);
+        const data = response.data;
 
         dispatch({
             type: GET_TAGS_LIST,
@@ -367,17 +395,12 @@ export const getTagsList = () => async dispatch => {
 };
 
 // Categories:
-export const getCategoriesList = () => async dispatch => {
+const getCategoriesList = () => async dispatch => {
     console.log(`Getting categories list..`);
-    const config = {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
     try {
 
-        const response = await axios.get(`${baseURL}/categories`, config);
-        const data =  response.data;
+        const response = await axios.get(`${baseURL}/categories`);
+        const data = response.data;
 
         dispatch({
             type: GET_CATEGORIES_LIST,
@@ -390,4 +413,14 @@ export const getCategoriesList = () => async dispatch => {
             payload: error.response
         });
     }
+};
+
+export default {
+    getScenariosList,
+    getCategoriesList,
+    getTagsList,
+    setFilterScenarios,
+    clearFilterScenarios,
+    setCurScenario,
+    getNodeList
 };

@@ -1,18 +1,13 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import SimpleCard from './cardComponent';
-
-// import Icon from '@material-ui/core/Icon';
-// import SaveIcon from '@material-ui/icons/Save';
+import {useSelector} from "react-redux";
 
 
-
-import { scenario1, nodes } from "./constants";
 import OptionsButtons from "./optionGroup";
-import {connect} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,18 +23,22 @@ const useStyles = makeStyles((theme) => ({
 
 function ShowScenario(props) {
     const classes = useStyles();
+    const scenario = useSelector(state => state.reducer.curScenario);
+    const nodes = useSelector(state => state.reducer.nodes);
+    const allNodes = nodes? nodes: [];
 
-    // const scenario = scenario1;
-    const scenario = props.curScenario ? props.curScenario : scenario1;
-
-    const allNodes = nodes;
-
-    const firstNodeID = scenario.first_node;
+    const firstNodeID = scenario? scenario.first_node: 111;
 
     const [activeNodeID, setActiveNodeID] = React.useState(firstNodeID);
 
+    console.log("activeNodeID");
+    console.log(activeNodeID);
     const [previousIDs, setPreviousIDs] = React.useState([firstNodeID]);
-
+    // if(scenario && (previousIDs !== activeNodeID)){
+    //     console.log("scenario.first_node is set");
+    //     console.log(scenario.first_node);
+    //     setActiveNodeID(scenario.first_node);
+    // }
 
     const getOptions = () => {
         const activeNode = allNodes.filter(item => item.id === activeNodeID)[0];
@@ -48,41 +47,44 @@ function ShowScenario(props) {
 
         return options;
 
-    }
+    };
 
     const selectOption = id => {
+        console.log("id");
         console.log(id);
         if (id !== null) {
             setActiveNodeID(id);
         }
 
-    }
+    };
 
     const getActiveNodeText = () => {
         const activeNode = allNodes.filter(item => item.id === activeNodeID)[0];
         return activeNode.text;
-    }
+    };
 
     const getActiveNodeUrl = () => {
         const activeNode = allNodes.filter(item => item.id === activeNodeID)[0];
         return activeNode.url;
-    }
+    };
 
     const getActiveNodeTooltip = () => {
         const activeNode = allNodes.filter(item => item.id === activeNodeID)[0];
+        console.log("activeNode.tooltip");
         console.log(activeNode.tooltip);
         return activeNode.tooltip;
-    }
+    };
 
     const updatePreviousIDs = id => {
         if (id !== null) {
             const ids = previousIDs;
             ids.push(id);
+            console.log("ids");
             console.log(ids);
             setPreviousIDs(ids);
         }
 
-    }
+    };
 
     const handleBack = () => {
         if (previousIDs.length > 1) {
@@ -91,13 +93,15 @@ function ShowScenario(props) {
             setPreviousIDs(ids);
             setActiveNodeID(previousIDs[previousIDs.length - 1])
         }
-    }
+    };
 
     const backButtonDisabled = previousIDs.length <= 1;
 
-
+    if (!scenario) {
+        return <p style={{fontWeight:"bolder"}}>Choose for scenario from the list</p>
+    }
     return (
-        <>
+        <React.Fragment>
             <Container fixed>
                 <div className>
                     <Typography variant="h4" component="h4">
@@ -107,9 +111,9 @@ function ShowScenario(props) {
                         {scenario.description}
                     </Typography>
                 </div>
-                <SimpleCard text={getActiveNodeText()} learnMore={getActiveNodeTooltip()} />
+                <SimpleCard text={getActiveNodeText()} learnMore={getActiveNodeTooltip()}/>
 
-                <span style={{ display: "flex" }}>
+                <span style={{display: "flex"}}>
                     <OptionsButtons
                         options={getOptions()}
                         url={getActiveNodeUrl()}
@@ -123,20 +127,15 @@ function ShowScenario(props) {
                         className={classes.button}
                         disabled={backButtonDisabled}
                         onClick={handleBack}
-                    // startIcon={<SaveIcon />}
+                        // startIcon={<SaveIcon />}
                     >
                         Back
                     </Button>
                 </span>
             </Container>
-        </>
+        </React.Fragment>
     );
 }
 
-const mapStateToProps = (state) => {
-    return ({
-        curScenario: state.reducer.curScenario
-    });
-}
 
-export default connect(mapStateToProps)(ShowScenario);
+export default ShowScenario;

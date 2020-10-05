@@ -5,8 +5,11 @@ import {
     GET_SCENARIO,
     EDIT_SCENARIO,
     DELETE_SCENARIO,
-    
+    CLEAR_FILTER,
+    SET_CUR_SCENARIO,
+
     // Nodes:
+    GET_NODE_LIST,
     CREATE_NODE,
     GET_NODE,
     UPDATE_NODE,
@@ -22,16 +25,18 @@ import {
 
     // Categories:
     GET_CATEGORIES_LIST,
-    
+
     // Error:
-    ERROR
+    ERROR, SET_FILTER
 } from "../types";
 
 const initialState = {
-    scenarios: "",
-    curScenario: null, // TODO: should there be curScenarioID as well??
-    curNode: null,//""
-    curOption: null,//""
+    scenarios: [],
+    curScenario: null,
+    filterScenarios: [],
+    nodes: [],
+    curNode: null,
+    curOption: null,
     tags: [],
     categories: [],
     error: ""
@@ -49,10 +54,35 @@ const reducer = (state = initialState, action) => {
         case GET_SCENARIOS_LIST:
             return {
                 ...state,
-                scenarios:  action.payload
+                scenarios: action.payload,
+                filterScenarios: action.payload
+            };
+
+        case SET_FILTER:
+            if (Array.isArray(action.payload)) {
+                return {
+                    ...state,
+                    filterScenarios: action.payload
+                };
+            } else {
+                return {
+                    ...state,
+                    filterScenarios: [action.payload]
+                };
+            }
+
+        case CLEAR_FILTER:
+            return {
+                ...state,
+                filterScenarios: state.scenarios
             };
 
         case GET_SCENARIO:
+            return {
+                ...state,
+                curScenario: action.payload
+            };
+        case SET_CUR_SCENARIO:
             return {
                 ...state,
                 curScenario: action.payload
@@ -62,15 +92,20 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 curScenario: action.payload
-            }; 
-            
+            };
+
         case DELETE_SCENARIO:
             return {
                 ...state,
                 curScenario: action.payload
             };
-        
+
         // Nodes:
+        case GET_NODE_LIST:
+            return {
+                ...state,
+                nodes: action.payload
+            };
         case CREATE_NODE:
             return {
                 ...state,
@@ -82,7 +117,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 curNode: action.payload
             };
-            
+
         case UPDATE_NODE:
             return {
                 ...state,

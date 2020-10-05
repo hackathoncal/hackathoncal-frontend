@@ -4,8 +4,12 @@ export const GET_SCENARIOS_LIST = "GET_SCENARIOS_LIST";
 export const GET_SCENARIO = "GET_SCENARIO";
 export const EDIT_SCENARIO = "EDIT_SCENARIO";
 export const DELETE_SCENARIO = "DELETE_SCENARIO";
+export const CLEAR_FILTER = "CLEAR_FILTER";
+export const SET_FILTER = "SET_FILTER";
+export const SET_CUR_SCENARIO = "SET_CUR_SCENARIO";
 
 // Nodes:
+export const GET_NODE_LIST = "GET_NODE_LIST";
 export const CREATE_NODE = "CREATE_NODE";
 export const GET_NODE = "GET_NODE";
 export const UPDATE_NODE = "UPDATE_NODE";

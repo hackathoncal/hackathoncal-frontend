@@ -1,6 +1,5 @@
 import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -8,7 +7,8 @@ import FormControl from '@material-ui/core/FormControl';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
-import Chip from '@material-ui/core/Chip';
+import {useSelector, useDispatch} from 'react-redux';
+import actions from "../../redux/actions/action";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -39,68 +39,69 @@ const MenuProps = {
     },
 };
 
-const names = [
-    'Matlab',
-    'Git',
-    'Powerup',
-    'IP crush',
-    'Laser',
-    'WP calibration',
-    'Configuration Hunter',
-    'Sys qual',
-    'GPS',
-    'Geometry server'
-];
 
-function getStyles(name, personName, theme) {
-    return {
-        fontWeight:
-            personName.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-    };
-}
-
-export default function MultipleSelect() {
-    const classes = useStyles();
-    const theme = useTheme();
-    const [personName, setPersonName] = React.useState([]);
-
-    const handleChange = (event) => {
-        setPersonName(event.target.value);
-    };
-
-    const handleChangeMultiple = (event) => {
-        const { options } = event.target;
-        const value = [];
-        for (let i = 0, l = options.length; i < l; i += 1) {
-            if (options[i].selected) {
-                value.push(options[i].value);
+const filterByTags = (scenarios = [], tags) => {
+    const filterTags = [];
+    const scenariosTagsToLowerCase = JSON.parse(JSON.stringify(scenarios));
+    for(let i=0; i<scenariosTagsToLowerCase.length ;i++){
+        let tagsOfScenario =  scenariosTagsToLowerCase[i].tags;
+        for(let j=0;  j<tagsOfScenario.length ;j++){
+            tagsOfScenario[j] = tagsOfScenario[j].toLowerCase();
+        }
+    }
+    for (const scenario of scenarios) {
+        for (const tag of tags) {
+            if (scenario.tags.includes(tag.toLowerCase())) {
+                filterTags.push(scenario);
+                break;
             }
         }
-        setPersonName(value);
+    }
+    return filterTags;
+};
+
+
+export default function MultipleSelect() {
+    const dispatch = useDispatch();
+    const setFilterScenarios = (scenarios) => dispatch(actions.setFilterScenarios(scenarios));
+    const classes = useStyles();
+    const [tagSuggestion, setTagSuggestion] = React.useState([]);
+    const tagsName = useSelector(state => state.reducer.tags);
+    const scenarios = useSelector(state => state.reducer.scenarios);
+    const handleChange = (event) => {
+        const tags = JSON.parse(JSON.stringify(tagSuggestion));
+        tags.push(event.target.value);
+        setTagSuggestion(event.target.value);
+        const filteredScenarios = filterByTags(scenarios, tags[tags.length-1]);
+        if(tags[tags.length-1].length===0){
+            setFilterScenarios(scenarios);
+        } else {
+            setFilterScenarios(filteredScenarios);
+        }
     };
 
+
     return (
-            <FormControl className={classes.formControl}>
-                <InputLabel id="demo-mutiple-checkbox-label">Tag</InputLabel>
-                <Select
-                    labelId="demo-mutiple-checkbox-label"
-                    id="demo-mutiple-checkbox"
-                    multiple
-                    value={personName}
-                    onChange={handleChange}
-                    input={<Input />}
-                    renderValue={(selected) => selected.join(', ')}
-                    MenuProps={MenuProps}
-                >
-                    {names.map((name) => (
-                        <MenuItem key={name} value={name}>
-                            <Checkbox checked={personName.indexOf(name) > -1} />
-                            <ListItemText primary={name} />
+        <FormControl className={classes.formControl}>
+            <InputLabel id="demo-mutiple-checkbox-label">Tags</InputLabel>
+            <Select
+                labelId="demo-mutiple-checkbox-label"
+                id="demo-mutiple-checkbox"
+                multiple
+                value={tagSuggestion}
+                onChange={handleChange}
+                input={<Input/>}
+                renderValue={(selected) => selected.join(', ')}
+                MenuProps={MenuProps}
+            >
+                {
+                    tagsName.map((tag) => (
+                        <MenuItem key={tag.id} value={tag.name}>
+                            <Checkbox checked={tagSuggestion.indexOf(tag.name) > -1}/>
+                            <ListItemText primary={tag.name}/>
                         </MenuItem>
                     ))}
-                </Select>
-            </FormControl>
+            </Select>
+        </FormControl>
     );
 }

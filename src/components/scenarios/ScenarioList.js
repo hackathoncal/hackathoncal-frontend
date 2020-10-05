@@ -1,73 +1,53 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import StarIcon from '@material-ui/icons/Star';
-import {connect} from "react-redux";
-import {getScenariosList, createScenario} from "../../redux/actions/action";
+import {useSelector, useDispatch} from "react-redux";
+import actions from "../../redux/actions/action";
+import "./scenariosList.scss";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
+        maxWidth: 600,
     },
+    active: {
+        backgroundColor: "light-blue"
+    }
 }));
 
-function ScenarioList({scenarios, getScenariosList, createScenario}) {
+function ScenarioList() {
+    const dispatch = useDispatch();
+    const setCurScenario = (scenario) => dispatch(actions.setCurScenario(scenario));
     const classes = useStyles();
-    useEffect(() => {
-        getScenariosList();
-        //eslint-disable-next-line
-
-    });
-    console.log("scenarios length");
-    console.log(scenarios);
-
-    let scenariosList = [
-        {
-            "id": 1,
-            "name": "Matlab is not working",
-            "description": "When trying to open Matlab utility on tool",
-            "tags": ["git", "MATLAB", "Devops"],
-            "category": "MATLAB",
-            "date": "14.09.2020",
-            "first_node_id": 2
-        },
-        {
-            "id": 2,
-            "name": "bs2 bft failed - File is already open",
-            "description": "Loren inspam ",
-            "tags": ["git", "MATLAB", "Devops"],
-            "category": "MATLAB",
-            "date": "14.09.2020",
-            "first_node_id": 2
-        },
-        {
-            "id": 3,
-            "name": "Can't pass powerup",
-            "description": "Loren inspam ",
-            "tags": ["git", "Devops"],
-            "category": "MATLAB",
-            "date": "14.09.2020",
-            "first_node_id": 2
+    const [activeIndex, setActiveIndex] = React.useState(-1);
+    const scenariosList = useSelector(state => {
+            return state.reducer.filterScenarios;
         }
-    ];
+    );
 
-    const handleClick = (scenario) => {
-        console.log(scenario);
-        createScenario(scenario);
+    const handleClick = (scenario, index) => {
+        setActiveIndex(index);
+        setCurScenario(scenario);
     };
-    return (
 
+    if (!scenariosList || scenariosList.length < 1) {
+        return (<p style={{fontWeight: "bolder", marginLeft: "2vw"}}>No matches scenarios founds</p>);
+    }
+
+    return (
         <List component="nav" className={classes.root} aria-label="contacts">
-            {scenariosList.map(scenario =>
-                <ListItem button>
+            {scenariosList &&
+            scenariosList.map((scenario, index) =>
+                <ListItem button key={scenario.id}
+                          className={index === activeIndex && "active"}
+                >
                     <StarIcon/>
+                    <span style={{position: "relative", left: "1.5vw"}}>{index + 1}</span>
                     <ListItemText inset primary={scenario.name} onClick={() => {
-                        handleClick(scenario)
+                        handleClick(scenario, index)
                     }}/>
                 </ListItem>
             )}
@@ -75,16 +55,6 @@ function ScenarioList({scenarios, getScenariosList, createScenario}) {
     );
 }
 
-const mapStateToProps = (state) => ({
-    scenarios: state.scenarios
-});
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         getScenariosList: () => dispatch(getScenariosList()),
-//         createScenario: (scenario) => dispatch(scenario(scenario))
-//     };
-// };
-
-export default connect(mapStateToProps, {getScenariosList, createScenario})(ScenarioList);
+export default ScenarioList;
 

@@ -5,6 +5,11 @@
   margin-top: 4vh;
 
   div {
+    .card {
+      height: 50vh;
+      max-height: 50vh;
+      //overflow: scroll;
+    }
     width: 100%;
     nav {
       max-width: 95%;
